@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     val text = remember { mutableStateOf("Hello $name") }
-    var aaa by remember { mutableStateOf(0) }
+    var aaa by remember { mutableStateOf(1) }
     val isEmitting = remember { mutableStateOf(false) }
     val processFlow = remember {
         flow {
@@ -48,7 +48,7 @@ fun Greeting(name: String) {
 
             delay(2000L)
             aaa++
-            emit("aaaaa $aaa")
+            emit("bbbb $aaa")
             isEmitting.value = false
         }
     }
