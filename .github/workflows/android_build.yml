@@ -1,22 +1,19 @@
 name: Android Build
 
 on: push
-
 jobs:
   test:
-
+    name: Run Unit Tests
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v1
-
-      - name: Set Up JDK
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup JDK
         uses: actions/setup-java@v1
         with:
           java-version: 11
       - name: Run Tests
-        run: ./gradlew test
-
+        run: bash ./gradlew test --stacktrace
   apk:
     name: Generate APK
     needs: test
@@ -29,14 +26,12 @@ jobs:
         with:
           java-version: 11
       - name: Build APK
-        run: bash ./gradlew assembleEts2Debug --stacktrace
+        run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
-
-
   release:
     name: Release APK
     needs: apk
@@ -62,6 +57,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: /apk/app-debug.apk
+          asset_path: apk/app-debug.apk
           asset_name: Coba.apk
           asset_content_type: application/zip
