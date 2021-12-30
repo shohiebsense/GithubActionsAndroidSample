@@ -17,6 +17,11 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        productFlavors {
+            create("ets2") {
+                applicationIdSuffix = ".ets2"
+            }
+        }
     }
 
     buildTypes {
@@ -45,6 +50,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+    flavorDimensions "versionCode"
 }
 
 dependencies {

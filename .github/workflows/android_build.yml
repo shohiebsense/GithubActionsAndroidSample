@@ -19,7 +19,7 @@ jobs:
         run: ./gradlew test
 
       - name: Build Project
-        run: ./gradlew clean assembleDebug
+        run: ./gradlew clean assembleEts2Debug
 
       - name: Create release and upload apk
         uses: underwindfall/create-release-with-debugapk@v2.0.0
